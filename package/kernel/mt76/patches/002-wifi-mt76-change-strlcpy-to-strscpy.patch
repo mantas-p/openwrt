@@ -1,0 +1,44 @@
+--- a/mt7615/mt7615_trace.h
++++ b/mt7615/mt7615_trace.h
+@@ -14,7 +14,7 @@
+ 
+ #define MAXNAME		32
+ #define DEV_ENTRY	__array(char, wiphy_name, 32)
+-#define DEV_ASSIGN	strlcpy(__entry->wiphy_name,	\
++#define DEV_ASSIGN	strscpy(__entry->wiphy_name,	\
+ 				wiphy_name(mt76_hw(dev)->wiphy), MAXNAME)
+ #define DEV_PR_FMT	"%s"
+ #define DEV_PR_ARG	__entry->wiphy_name
+--- a/mt76x02_trace.h
++++ b/mt76x02_trace.h
+@@ -14,7 +14,7 @@
+ 
+ #define MAXNAME		32
+ #define DEV_ENTRY	__array(char, wiphy_name, 32)
+-#define DEV_ASSIGN	strlcpy(__entry->wiphy_name,	\
++#define DEV_ASSIGN	strscpy(__entry->wiphy_name,	\
+ 				wiphy_name(mt76_hw(dev)->wiphy), MAXNAME)
+ #define DEV_PR_FMT	"%s"
+ #define DEV_PR_ARG	__entry->wiphy_name
+--- a/trace.h
++++ b/trace.h
+@@ -14,7 +14,7 @@
+ 
+ #define MAXNAME		32
+ #define DEV_ENTRY	__array(char, wiphy_name, 32)
+-#define DEVICE_ASSIGN	strlcpy(__entry->wiphy_name,	\
++#define DEVICE_ASSIGN	strscpy(__entry->wiphy_name,	\
+ 				wiphy_name(dev->hw->wiphy), MAXNAME)
+ #define DEV_PR_FMT	"%s"
+ #define DEV_PR_ARG	__entry->wiphy_name
+--- a/usb_trace.h
++++ b/usb_trace.h
+@@ -14,7 +14,7 @@
+ 
+ #define MAXNAME		32
+ #define DEV_ENTRY	__array(char, wiphy_name, 32)
+-#define DEV_ASSIGN	strlcpy(__entry->wiphy_name,	\
++#define DEV_ASSIGN	strscpy(__entry->wiphy_name,	\
+ 				wiphy_name(dev->hw->wiphy), MAXNAME)
+ #define DEV_PR_FMT	"%s "
+ #define DEV_PR_ARG	__entry->wiphy_name
