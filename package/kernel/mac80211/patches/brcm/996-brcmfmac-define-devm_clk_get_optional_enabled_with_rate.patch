@@ -1,0 +1,35 @@
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/of.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/of.c
+@@ -14,6 +14,32 @@
+ #include "common.h"
+ #include "of.h"
+ 
++static struct clk *devm_clk_get_optional_enabled_with_rate(struct device *dev,
++						    const char *id,
++						    unsigned long rate)
++{
++	struct clk *clk;
++	int ret;
++
++	clk = devm_clk_get_optional_enabled(dev, id);
++	if (IS_ERR(clk))
++		return ERR_CAST(clk);
++
++	ret = clk_set_rate(clk, rate);
++	if (ret)
++		goto out_put_clk;
++
++	ret = clk_prepare_enable(clk);
++	if (ret)
++		goto out_put_clk;
++
++	return clk;
++
++out_put_clk:
++	devm_clk_put(dev, clk);
++	return ERR_PTR(ret);
++}
++
+ static int brcmf_of_get_country_codes(struct device *dev,
+ 				      struct brcmf_mp_device *settings)
+ {
